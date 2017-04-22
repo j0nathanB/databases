@@ -1,41 +1,37 @@
-/*CREATE DATABASE chat;*/
+CREATE DATABASE chat;
 
 USE chat;
 
 CREATE TABLE messages (
   /* Describe your table here.*/
   id integer,
-  username_id integer,
   message text not null,
-  roomname_id integer,
-  primary key(id),
-  foreign key(username_id),
-  foreign key(roomname_id)
+  user_id integer,
+  room_id integer,
+  primary key(id)
 );
 
 /* Create other tables and define schemas for them here! */
 CREATE TABLE rooms (
   id integer,
   roomname text not null,
-  username_id integer,
-  message_id integer,
-  primary key(id),
-  foreign key(username_id),
-  foreign key(message_id)
+  primary key(id)
 );
 
 CREATE TABLE users (
   id integer,
   username text not null,
-  roomname_id integer,
-  message_id integer,
-  primary key(id),
-  foreign key(roomname_id),
-  foreign key(message_id)
+  primary key(id)
 );
 
+/* Manually insert into messages:
+foreign key(user_id) references users(id),
+foreign key(room_id) references rooms(id)
+by inserting:*/
+alter table messages add (foreign key(user_id) references users(id), foreign key(room_id) references rooms(id));
+
 /*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
+ *    mysql -u root -p < server/schema.sql
  *  to create the database and the tables.*/
 
 /*many messages for one room, but not many rooms to one message*/
