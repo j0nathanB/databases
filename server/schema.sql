@@ -4,23 +4,18 @@ USE chat;
 
 CREATE TABLE messages (
   /* Describe your table here.*/
-  id integer,
-  message text not null,
-  user_id integer,
-  room_id integer,
+  id integer not null auto_increment,
+  text varchar(140) not null,
+  user_id integer not null,
+  roomname varchar(15),
   primary key(id)
 );
 
 /* Create other tables and define schemas for them here! */
-CREATE TABLE rooms (
-  id integer,
-  roomname text not null,
-  primary key(id)
-);
 
 CREATE TABLE users (
-  id integer,
-  username text not null,
+  id integer not null auto_increment,
+  username varchar(10) not null,
   primary key(id)
 );
 
@@ -28,7 +23,6 @@ CREATE TABLE users (
 foreign key(user_id) references users(id),
 foreign key(room_id) references rooms(id)
 by inserting:*/
-alter table messages add (foreign key(user_id) references users(id), foreign key(room_id) references rooms(id));
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root -p < server/schema.sql
